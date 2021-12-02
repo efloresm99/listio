@@ -22,7 +22,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.engine('html', require('ejs').renderFile);
 
 //Importar rutas
-
+app.use(require('./routes/index'));
 
 
 //Inicializar aplicación
