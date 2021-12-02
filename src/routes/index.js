@@ -60,7 +60,6 @@ router.get('/api/users/:username', (req, res) => {
 //                           Listas
 
 //Devolver las listas de un usuario en específico
-
 router.get('/api/:userid/listas', (req, res) => {
     const {userid} = req.params;
     const queryListas = `SELECT idlista, nombrelista FROM listas WHERE iduser = ${userid}`;
@@ -73,6 +72,21 @@ router.get('/api/:userid/listas', (req, res) => {
         else{
             res.json(prepareResponse(0, 'El usuario no tiene listas registradas'));
         }
+    });
+});
+
+
+//Crear una nueva lista
+router.post('/api/listas/nueva/', (req, res) => {
+    const queryLista = "INSERT INTO listas SET ?";
+    const listaObject = {
+        nombrelista: req.body.nombrelista,
+        iduser: req.body.iduser
+    };
+    conexion.query(queryLista, listaObject, error => {
+        if (error) throw error;
+
+        res.json(prepareResponse(1,'Lista creada exitosamente'));
     });
 })
 
