@@ -22,8 +22,17 @@ conexion.connect(error => {
 //Seguramente hay mejores prácticas para la lógica de desarrollo que tiene cada ruta (como controladores)
 //Sin embargo, por ahora, la lógica de la app estará aquí.
 
-
 //Primero estarán los endpoints de la API
+
+//Función que construye el objeto de respuesta
+function prepareResponse(receivedCode, receivedMessage, receivedItems = {}){
+    const response = {
+        responseCode: receivedCode,
+        message: receivedMessage,
+        data: receivedItems
+    }
+    return response;
+}
 
 
 //                      Usuarios (o simulación de usuarios)
@@ -33,24 +42,42 @@ router.get('/api/users/:username', (req, res) => {
     const {username} = req.params;
     const queryUser = `SELECT iduser FROM users WHERE username = '${username}'`;
     conexion.query(queryUser, (error, result) => {
-        let response = {}; //Este objeto será el que devolverán todos los endpoints de las APIs
+        
         if (error) throw error;
 
+        //Devolver datos
         if (result.length > 0){
-            response.responseCode = 1;
-            response.message = "Usuario encontrado";
-            response.items = result;
-        } else{
-            response.responseCode = 0;
-            response.message = "Usuario no encontrado";
-            response.items = {}
+            res.json(prepareResponse(1,'Usuario encontrado',result));
+        }
+        else{
+            res.json(prepareResponse(0,'Usuario no encontrado'));
         }
 
-        //Devolver datos
-        res.json(response);
     })
 });
 
 
+//                           Listas
+
+//Devolver las listas de un usuario en específico
+
+router.get('/api/:userid/listas', (req, res) => {
+    const {userid} = req.params;
+    const queryListas = `SELECT idlista, nombrelista FROM listas WHERE iduser = ${userid}`;
+    conexion.query(queryListas, (error, result) => {
+        if (error) throw error;
+            
+        if (result.length > 0){
+            res.json(prepareResponse(1,'Listas encontradas',result));
+        }
+        else{
+            res.json(prepareResponse(0, 'El usuario no tiene listas registradas'));
+        }
+    });
+})
+
 
 module.exports = router;
+
+
+
