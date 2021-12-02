@@ -93,31 +93,15 @@ router.post('/api/listas/nueva/', (req, res) => {
 //Eliminar una lista
 router.delete('/api/listas/borrar/:idlista', (req, res) => {
     const {idlista} = req.params;
-    //Primero verifico si la lista existe
-    const querySelect = `SELECT idlista FROM listas WHERE idlista = ${idlista}`;
-    let listaExiste;
-    conexion.query(querySelect, (error, result) => {
-        if (error) throw error;
-            
-        listaExiste = (result.length) > 0 ? true: false;
 
-    });
-
-    //Si la lista existe, se elimina, sino se envia mensaje aclarando que no existe
-    if (listaExiste){
-        const queryDelete = `DELETE FROM listas WHERE idlista = ${idlista}`;
-        conexion.query(queryDelete, error =>{
+    //No verificaré antes de eliminar
+    const queryDelete = `DELETE FROM listas WHERE idlista = ${idlista}`;
+    conexion.query(queryDelete, error =>{
             if (error) throw error;
             res.json(prepareResponse(1,'Lista eliminada exitosamente'));
-        });
-    }
-    else{
-        res.json(prepareResponse(0,'La lista que deseas eliminar no existe'));
-    }
-})
+    });
+});
+
 
 
 module.exports = router;
-
-
-
