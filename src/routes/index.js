@@ -102,6 +102,25 @@ router.delete('/api/listas/borrar/:idlista', (req, res) => {
     });
 });
 
+//Nota: No se podrán editar las listas
 
+
+
+//               Items
+
+//Crear un nuevo item de una lista
+router.post('/api/listas/items/nuevo', (req, res)=>{
+    queryItem = "INSERT INTO items_lista SET ?";
+    const itemObject = {
+        item: req.body.item,
+        completado: 0,
+        idlista: req.body.idlista
+    };
+    conexion.query(queryItem, itemObject, error => {
+        if (error) throw error;
+
+        res.json(prepareResponse(1,'Item añadido exitosamente'));
+    });
+})
 
 module.exports = router;
