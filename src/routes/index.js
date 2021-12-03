@@ -134,8 +134,6 @@ router.put('/api/items/:iditem/cambiarestado', (req, res) => {
     });
 });
 
-module.exports = router;
-
 
 //Eliminar items marcados como completados
 router.delete('/api/:idlista/items/borrar/completados', (req, res) => {
@@ -173,3 +171,14 @@ router.get('/api/listas/:idlista/items', (req, res) => {
         }
     });
 });
+
+
+//                      Rutas para el frontend
+
+//Página principal: simulará una simple gestión de usuarios
+router.get('/', (req, res) => {
+    res.render('index.html');
+});
+
+
+module.exports = router;
