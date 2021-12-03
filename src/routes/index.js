@@ -220,7 +220,7 @@ router.get('/:iduser/mislistas', (req, res) => {
 });
 
 //Página para ver los items de una lista
-router.get('/lista/:idlista', (req, res) => {
+router.get('/listas/:idlista', (req, res) => {
     const {idlista} = req.params;
     res.render('verLista.html', {idlista: idlista});
 })

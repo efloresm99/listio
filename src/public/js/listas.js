@@ -5,7 +5,7 @@ $(document).ready(function(){
 
 function cargarListas(){
     const iduser = $('#iduser').val();
-    const url = 'http://localhost:3000/api/' + iduser + '/listas';
+    const url = 'https://elistio.herokuapp.com/api/' + iduser + '/listas';
 
     //Variable con la que se construiran los elementos html
     let html = '';
@@ -47,7 +47,7 @@ function crearLista(){
     const iduser = $('#iduser').val();
     const nombrelista = $('#nuevalistaName').val();
 
-    const crearUrl = 'http://localhost:3000/api/listas/nueva/';
+    const crearUrl = 'https://elistio.herokuapp.com/api/listas/nueva/';
     
     const listaObj = {
         nombrelista: nombrelista,
@@ -79,7 +79,7 @@ function crearLista(){
 
 
 function eliminarLista(idlista){
-    const url = 'http://localhost:3000/api/listas/borrar/' + idlista;
+    const url = 'https://elistio.herokuapp.com/api/listas/borrar/' + idlista;
     $.ajax({
         type: 'DELETE',
         url: url,
@@ -101,7 +101,7 @@ function eliminarLista(idlista){
 }
 
 function verLista(idlista){
-    let url = 'http://localhost:3000/lista/' + idlista;
+    let url = 'https://elistio.herokuapp.com/listas/' + idlista;
     
     $(location).attr('href', url);         
 }

@@ -8,7 +8,7 @@ $(document).ready(function(){
 
 function cargarItems(){
     const iduser = $('#iduser').val();
-    const url = 'http://localhost:3000/api/listas/' + idlista + '/items';
+    const url = 'https://elistio.herokuapp.com/api/listas/' + idlista + '/items';
 
     //Variable con la que se construiran los elementos html
     let html = '';
@@ -72,7 +72,7 @@ function cargarItems(){
 
 //Si el elemento no está completado, se marca como completado y viceversa
 function cambiarEstado(idelemento){
-    const url = 'http://localhost:3000/api/items/' + idelemento + '/cambiarestado';
+    const url = 'https://elistio.herokuapp.com/api/items/' + idelemento + '/cambiarestado';
     $.ajax({
         type: 'PUT',
         url: url,
@@ -94,7 +94,7 @@ function cambiarEstado(idelemento){
 
 //Crear un nuevo item (o elemento)
 function nuevoElemento(){
-    const url = 'http://localhost:3000/api/items/nuevo';
+    const url = 'https://elistio.herokuapp.com/api/items/nuevo';
     const itemText = $('#nuevo').val();
     const dataObj = {
         item: itemText,
@@ -126,7 +126,7 @@ function nuevoElemento(){
 
 //Borrar los elementos marcados como completados
 function borrarSeleccionado(){
-    const url = 'http://localhost:3000/api/' + idlista + '/items/borrar/completados';
+    const url = 'https://elistio.herokuapp.com/api/' + idlista + '/items/borrar/completados';
     $.ajax({
         type: 'DELETE',
         url: url,
@@ -146,7 +146,7 @@ function borrarSeleccionado(){
 
 //Eliminar todos los items de la lista
 function borrarTodo(){
-    const url = 'http://localhost:3000/api/' + idlista + '/items/borrar/todos';
+    const url = 'https://elistio.herokuapp.com/api/' + idlista + '/items/borrar/todos';
     $.ajax({
         type: 'DELETE',
         url: url,
@@ -170,7 +170,7 @@ function borrarTodo(){
 
 //Función para obtener el nombre de la lista actual
 function cargarNombreLista(){
-    const url = 'http://localhost:3000/api/listas/' + idlista;
+    const url = 'https://elistio.herokuapp.com/api/listas/' + idlista;
     $.ajax({
         type: 'GET',
         url: url,
@@ -202,7 +202,7 @@ function editarItemText(idelemento, textoElemento){
 function editarItem(idelemento){
     
 
-        const url = 'http://localhost:3000/api/items/' + idelemento + '/editar';
+        const url = 'https://elistio.herokuapp.com/api/items/' + idelemento + '/editar';
         const itemTxt = $('#editItem').val();
         const itemObj = {
             item: itemTxt
