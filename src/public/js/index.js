@@ -1,6 +1,6 @@
 function verificarUsuario(){
     let username = $('#user').val();
-    let url = 'http://localhost:3000/api/users/' + username;
+    let url = 'https://mysql-efloresm.alwaysdata.net/api/users/' + username;
 
     //Realizar el llamado al API
     $.ajax({
