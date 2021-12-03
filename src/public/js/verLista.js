@@ -25,9 +25,10 @@ function cargarItems(){
                     let countSelected = 0;
                     response.data.forEach(element => {
                         html += '<tr class="items">';
-                        html += '<td class="itemNombre">' + element.item + '</td>';
                         html += element.completado == 1 ? `<td> <input class="form-check-input" type="checkbox" checked onchange="cambiarEstado(${element.idelemento})"></td>`
                             : `<td> <input class="form-check-input" type="checkbox" onchange="cambiarEstado(${element.idelemento})"></td>`;
+                        html += '<td class="itemNombre">' + element.item + '</td>';
+                        html += `<td><button type="button" class="btn btn-secondary" id="btnEdit" onclick="editarItemText(${element.idelemento}, '${element.item}')"><i class="fa fa-edit"></i></button></td>`;
                         html += '</tr>';
                         
                         //contar cuantos items estan marcados como seleccionados
@@ -185,4 +186,33 @@ function cargarNombreLista(){
             console.log(error);
         }
     });
+}
+
+//Función para editar el nombre de un elemento
+function editarItemText(idelemento, textoElemento){
+    $('#editBlock').show();
+    $('#editItem').val(textoElemento);
+    $('#btnEdit').on('click', `editarItem(${idelemento})`);
+    $('#editItem').focus();
+
+    deshabilitarControles();
+}
+
+//Función para actualizar el nombre de un elemento
+function editarItem(idelemento){
+    $('#editItem').val('');
+    $('#editBlock').hide();
+
+    
+    //habilitarControles();
+}
+
+function deshabilitarControles(){
+   $('#controls').hide();
+   $('#tablaItems').hide();
+}
+
+function habilitarControles(){
+    $('#controls').show();
+    $('#tablaItems').show();
 }
