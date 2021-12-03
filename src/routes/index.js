@@ -180,5 +180,13 @@ router.get('/', (req, res) => {
     res.render('index.html');
 });
 
+router.get('/mislistas/:iduser', (req, res) => {
+    const {iduser} = req.params;
+    res.render('listas.html', {iduser: iduser});
+})
+
+
+
+
 
 module.exports = router;
