@@ -169,7 +169,7 @@ router.get('/api/listas/:idlista/items', (req, res) => {
             res.json(prepareResponse(1,'Items encontrados',result));
         }
         else{
-            res.json(prepareResponse(0, 'La lista está vacía'));
+            res.json(prepareResponse(1, 'La lista está vacía'));
         }
     });
 });

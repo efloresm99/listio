@@ -59,6 +59,7 @@
                         <div class="col-md-12 text-center" >
                             <h2 id="titulo">Mis listas</h2>
                             <hr>
+                            
                         </div>
                     </div>
                     <div class="row">
@@ -194,7 +195,7 @@
 
         function verLista(idlista){
             let url = 'http://localhost:3000/lista/' + idlista;
-            //Realizar el llamado al API
+            
             $(location).attr('href', url);         
         }
     </script>
