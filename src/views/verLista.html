@@ -89,7 +89,7 @@
                         <div class="input-group">
                             <button class="btn btn-warning" id="borrarSelec" disabled onclick="borrarSeleccionado()">Borrar seleccionado</button>
                             <span class="input-group-text">&nbsp;</span>
-                            <button class="btn btn-danger">Borrar todo</button>
+                            <button class="btn btn-danger" id="borrarTodo" onclick="borrarTodo();">Borrar todo</button>
                           </div>
                         </div>
                     </div>
@@ -141,20 +141,30 @@
                                     : `<td> <input class="form-check-input" type="checkbox" onchange="cambiarEstado(${element.idelemento})"></td>`;
                                 html += '</tr>';
                                 
-                                //Quitar el disabled si hay por lo menos uno chequeado
+                                //contar cuantos items estan marcados como seleccionados
                                 if (element.completado == 1){
                                     countSelected++;
                                 }
 
                             });
+
+                            //Quitar el disabled si hay por lo menos uno chequeado
                             if (countSelected > 0){
                                 $('#borrarSelec').prop('disabled', false);
                             }else{
                                 $('#borrarSelec').prop('disabled', true);
                             }
+
+                            //Habilitar el borrar todo porque hay items
+                            $('#borrarTodo').prop('disabled', false);
                           
+
                         }
                         else{
+
+                            //Deshabilitar el botón de borrar todo
+                            $('#borrarTodo').prop('disabled', true);
+
                             html += '<tr><td colspan="2">Vaya! Parece que la lista está vacía.</td></tr>';
                         }
                         $('#cuerpo').html(html);
@@ -235,6 +245,29 @@
                     if (response.responseCode == 1){
                         console.log(response);
                         cargarItems();
+                    }
+                },
+                error: function(error){
+                    console.log(error);
+                    alert('Ha ocurrido un error al establecer la comunicación con el servidor');
+                }
+            });
+        }
+
+
+        function borrarTodo(){
+            const url = 'http://localhost:3000/api/' + idlista + '/items/borrar/todos';
+            $.ajax({
+                type: 'DELETE',
+                url: url,
+                dataType: "json",
+                success: function(response){
+                    if (response.responseCode == 1){
+                        console.log(response);
+                        cargarItems();
+                        alert("Se eliminaron todos los elementos de la lista");
+                    } else{
+                        alert(response.message);
                     }
                 },
                 error: function(error){
