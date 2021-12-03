@@ -180,11 +180,17 @@ router.get('/', (req, res) => {
     res.render('index.html');
 });
 
-router.get('/mislistas/:iduser', (req, res) => {
+//Página para ver las listas
+router.get('/:iduser/mislistas', (req, res) => {
     const {iduser} = req.params;
     res.render('listas.html', {iduser: iduser});
-})
+});
 
+//Página para ver los items de un
+router.get('/lista/:idlista', (req, res) => {
+    const {idlista} = req.params;
+    res.render('verLista.html', {idlista: idlista});
+})
 
 
 
