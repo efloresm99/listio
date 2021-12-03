@@ -39,12 +39,14 @@ function prepareResponse(receivedCode, receivedMessage, receivedItems = {}){
 
 //Verificar si el usuario existe con el nombre de usuario
 router.get('/api/users/:username', (req, res) => {
+   
     const {username} = req.params;
     const queryUser = `SELECT iduser FROM users WHERE username = '${username}'`;
     conexion.query(queryUser, (error, result) => {
         
         if (error) throw error;
 
+        
         //Devolver datos
         if (result.length > 0){
             res.json(prepareResponse(1,'Usuario encontrado',result));
