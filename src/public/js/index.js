@@ -1,6 +1,6 @@
 function verificarUsuario(){
     let username = $('#user').val();
-    let url = 'elistio.herokuapp.com/api/users/' + username;
+    let url = 'https://elistio.herokuapp.com/api/users/' + username;
 
     //Realizar el llamado al API
     $.ajax({
@@ -9,7 +9,7 @@ function verificarUsuario(){
         dataType: "json",
         success: function(response){
             if (response.responseCode == 1){
-                const redirect = 'elistio.herokuapp.com/' + response.data[0].iduser +'/mislistas';
+                const redirect = 'https://elistio.herokuapp.com/' + response.data[0].iduser +'/mislistas';
                 $(location).attr('href', redirect);
             } else{
                 alert(response.message);
