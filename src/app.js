@@ -12,6 +12,9 @@ const app = express();
 //Definir uso de bodyparser
 app.use(bodyParser.json());
 
+//Definir el uso de archivos estáticos
+app.use('/public', express.static(__dirname + '/public'));
+
 //Configurar ejs como motor de plantillas
 app.set('view engine', 'ejs');
 

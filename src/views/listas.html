@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -13,43 +13,7 @@
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
 
     <!-- CSS propio -->
-    <style>
-        body,.container-fluid {
-            height: 100%;
-            background: -webkit-linear-gradient(145deg, #3062D6 20%, #956EE3 80%);
-            background:    -moz-linear-gradient(145deg, #3062D6 20%, #956EE3 80%);
-            background:     -ms-linear-gradient(145deg, #3062D6 20%, #956EE3 80%);
-            background:      -o-linear-gradient(145deg, #3062D6 20%, #956EE3 80%);
-            background:         linear-gradient(145deg, #3062D6 20%, #956EE3 80%);
-            font-family: Verdana, Geneva, Tahoma, sans-serif;
-        }
-        #contprincipal{
-            width: 100%;
-            background-color: rgba(255, 255, 255, 0.904);
-            margin-top: 2%;
-            border-radius: 0.8em;
-            padding-top: 1%;
-            padding-bottom: 2%;
-            color: rgb(0, 0, 0);
-        }
-
-        #titulo{
-            font-weight:bold;
-            font-family: Arial, Helvetica, sans-serif;
-            color: rgb(48, 67, 236);
-        }
-
-        .nombrelista{
-            width: 70%;
-            vertical-align: middle;
-        }
-
-        .padding-x{
-            padding-left: 3%;
-            padding-right: 3%;
-        }
-
-    </style>
+    <link rel="stylesheet" href="../public/css/listas.css">
 </head>
 <body>
     <div class="container-fluid">
@@ -88,116 +52,6 @@
     <!-- Javascript de Bootstrap -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
-    <script>
-        //Obtener las listas del usuario al momento de la carga de la página
-        $(document).ready(function(){
-            cargarListas();
-        });
-
-        function cargarListas(){
-            const iduser = $('#iduser').val();
-            const url = 'http://localhost:3000/api/' + iduser + '/listas';
-
-            //Variable con la que se construiran los elementos html
-            let html = '';
-
-
-            //Realizar el llamado al API
-            $.ajax({
-                type: 'GET',
-                url: url,
-                dataType: "json",
-                success: function(response){
-                    if (response.responseCode == 1){
-                        console.log(response);
-                        if (response.data.length > 0){
-                            response.data.forEach(element => {
-                                html += '<tr>';
-                                html += '<td>' + element.nombrelista + '</td>';
-                                html += `<td><button class="btn btn-primary" onclick="verLista(${element.idlista})">Ver lista</button>`;
-                                html += ` <button class="btn btn-danger" onclick="eliminarLista(${element.idlista})"><i class="fa fa-trash"></i></button>`;
-                                html += '</tr>';
-                            });
-                        }
-                        else{
-                            html += '<tr><td colspan="2">Vaya! Parece que no tienes ninguna lista.</td></tr>';
-                        }
-                        $('#cuerpo').html(html);
-                    } else{
-                        alert(response.message);
-                        console.log(response);
-                    }
-                },
-                error: function(error){
-                    console.log(error);
-                    alert('Ha ocurrido un error al obtener la información');
-                }
-            });
-        }
-
-        function crearLista(){
-            const iduser = $('#iduser').val();
-            const nombrelista = $('#nuevalistaName').val();
-
-            const crearUrl = 'http://localhost:3000/api/listas/nueva/';
-            
-            const listaObj = {
-                nombrelista: nombrelista,
-                iduser: iduser
-            };
-            const lista = JSON.stringify(listaObj);
-            $.ajax({
-                type: 'POST',
-                url: crearUrl,
-                dataType: "json",
-                data: lista,
-                contentType: "application/json; charset=utf-8",
-                success: function(response){
-                    if (response.responseCode == 1){
-                        console.log(response);
-                        cargarListas();
-                        $('#nuevalistaName').val('');
-                        
-                    } else{
-                        alert(response.message);
-                    }
-                },
-                error: function(error){
-                    console.log(error);
-                    alert('Ha ocurrido un error al obtener la información');
-                }
-            });
-        }
-
-
-        function eliminarLista(idlista){
-            const url = 'http://localhost:3000/api/listas/borrar/' + idlista;
-            $.ajax({
-                type: 'DELETE',
-                url: url,
-                dataType: "json",
-                success: function(response){
-                    if (response.responseCode == 1){
-                        console.log(response);
-                        alert("Lista eliminada");
-                        cargarListas();
-                    } else{
-                        alert(response.message);
-                    }
-                },
-                error: function(error){
-                    console.log(error);
-                    alert('Ha ocurrido un error al establecer la comunicación con el servidor');
-                }
-            });
-        }
-
-
-        function verLista(idlista){
-            let url = 'http://localhost:3000/lista/' + idlista;
-            
-            $(location).attr('href', url);         
-        }
-    </script>
+    <script src="../public/js/listas.js" type="text/javascript"></script>
 </body>
 </html>

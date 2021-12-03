@@ -1,0 +1,18 @@
+body,.container-fluid {
+    height: 100%;
+    background: -webkit-linear-gradient(145deg, #3062D6 20%, #956EE3 80%);
+    background:    -moz-linear-gradient(145deg, #3062D6 20%, #956EE3 80%);
+    background:     -ms-linear-gradient(145deg, #3062D6 20%, #956EE3 80%);
+    background:      -o-linear-gradient(145deg, #3062D6 20%, #956EE3 80%);
+    background:         linear-gradient(145deg, #3062D6 20%, #956EE3 80%);
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+#tituloprincipal {
+   color: white;
+}
+i {
+   color:white
+}
+.parr {
+   color: white;
+}
