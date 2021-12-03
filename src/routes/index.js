@@ -109,7 +109,7 @@ router.delete('/api/listas/borrar/:idlista', (req, res) => {
 //               Items
 
 //Crear un nuevo item de una lista
-router.post('/api/listas/items/nuevo', (req, res)=>{
+router.post('/api/items/nuevo', (req, res)=>{
     queryItem = "INSERT INTO items_lista SET ?";
     const itemObject = {
         item: req.body.item,
@@ -138,11 +138,38 @@ module.exports = router;
 
 
 //Eliminar items marcados como completados
-router.delete('/api/items/borrar/completados/:idlista', (req, res) => {
+router.delete('/api/:idlista/items/borrar/completados', (req, res) => {
     const {idlista} = req.params;
     const queryDelete = `DELETE FROM items_lista WHERE completado = 1 AND idlista = ${idlista}`;
     conexion.query(queryDelete, error =>{
         if (error) throw error;
         res.json(prepareResponse(1,'Los elementos completados de la lista han sido eliminados'));
+    });
+});
+
+
+//Eliminar todos los items de una lista
+router.delete('/api/:idlista/items/borrar/todos', (req, res) => {
+    const {idlista} = req.params;
+    const queryDelete = `DELETE FROM items_lista WHERE idlista = ${idlista}`;
+    conexion.query(queryDelete, error =>{
+        if (error) throw error;
+        res.json(prepareResponse(1,'Todos los elementos de la lista han sido eliminados'));
+    });
+});
+
+//Listar todos los items de la lista
+router.get('/api/listas/:idlista/items', (req, res) => {
+    const {idlista} = req.params;
+    const query = `SELECT idelemento, item, completado FROM items_lista WHERE idlista = ${idlista}`;
+    conexion.query(query, (error, result) =>{
+        if (error) throw error;
+
+        if (result.length > 0){
+            res.json(prepareResponse(1,'Items encontrados',result));
+        }
+        else{
+            res.json(prepareResponse(0, 'La lista está vacía'));
+        }
     });
 });
