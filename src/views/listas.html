@@ -145,7 +145,7 @@
             };
             const lista = JSON.stringify(listaObj);
             $.ajax({
-                type: 'post',
+                type: 'POST',
                 url: crearUrl,
                 dataType: "json",
                 data: lista,
@@ -163,6 +163,29 @@
                 error: function(error){
                     console.log(error);
                     alert('Ha ocurrido un error al obtener la información');
+                }
+            });
+        }
+
+
+        function eliminarLista(idlista){
+            const url = 'http://localhost:3000/api/listas/borrar/' + idlista;
+            $.ajax({
+                type: 'DELETE',
+                url: url,
+                dataType: "json",
+                success: function(response){
+                    if (response.responseCode == 1){
+                        console.log(response);
+                        alert("Lista eliminada");
+                        cargarListas();
+                    } else{
+                        alert(response.message);
+                    }
+                },
+                error: function(error){
+                    console.log(error);
+                    alert('Ha ocurrido un error al establecer la comunicación con el servidor');
                 }
             });
         }
