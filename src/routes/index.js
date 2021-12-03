@@ -135,3 +135,14 @@ router.put('/api/items/:iditem/cambiarestado', (req, res) => {
 });
 
 module.exports = router;
+
+
+//Eliminar items marcados como completados
+router.delete('/api/items/borrar/completados/:idlista', (req, res) => {
+    const {idlista} = req.params;
+    const queryDelete = `DELETE FROM items_lista WHERE completado = 1 AND idlista = ${idlista}`;
+    conexion.query(queryDelete, error =>{
+        if (error) throw error;
+        res.json(prepareResponse(1,'Los elementos completados de la lista han sido eliminados'));
+    });
+});
