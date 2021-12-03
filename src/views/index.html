@@ -11,17 +11,21 @@
 
     <!-- CSS propio -->
     <style>
-        body,.container-fluid, .row{
+        body,.container-fluid {
             height: 100%;
-            background-color: dodgerblue;
+            background: -webkit-linear-gradient(145deg, #3062D6 20%, #956EE3 80%);
+            background:    -moz-linear-gradient(145deg, #3062D6 20%, #956EE3 80%);
+            background:     -ms-linear-gradient(145deg, #3062D6 20%, #956EE3 80%);
+            background:      -o-linear-gradient(145deg, #3062D6 20%, #956EE3 80%);
+            background:         linear-gradient(145deg, #3062D6 20%, #956EE3 80%);
         }
 
     </style>
 </head>
 <body>
     <div class="container-fluid">
-        <div class="row align-items-center" style="background-color: firebrick;">
-            <div class="col-md-12 text-center">
+        <div class="d-flex flex-column min-vh-100 justify-content-center align-items-center">
+            <div class="col-md-6 text-center">
                 <h1>Bienvenido a Listio</h1>
                 <p>Crea listas de quehaceres de manera rápida y sencilla.</p>
             </div>
