@@ -121,6 +121,17 @@ router.post('/api/listas/items/nuevo', (req, res)=>{
 
         res.json(prepareResponse(1,'Item añadido exitosamente'));
     });
-})
+});
+
+
+//Marcar item como completado
+router.put('/api/items/:iditem/cambiarestado', (req, res) => {
+    const {iditem} = req.params;
+    const queryCompletado = `UPDATE items_lista SET completado = NOT completado WHERE idelemento=${iditem}`; //Cambia el estado de completado
+    conexion.query(queryCompletado, error => {
+        if (error) throw error;
+        res.json(prepareResponse(1,'Item cambiado de estado exitosamente'));
+    });
+});
 
 module.exports = router;
