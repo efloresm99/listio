@@ -124,6 +124,7 @@
                         $('#cuerpo').html(html);
                     } else{
                         alert(response.message);
+                        console.log(response);
                     }
                 },
                 error: function(error){
@@ -188,6 +189,13 @@
                     alert('Ha ocurrido un error al establecer la comunicación con el servidor');
                 }
             });
+        }
+
+
+        function verLista(idlista){
+            let url = 'http://localhost:3000/lista/' + idlista;
+            //Realizar el llamado al API
+            $(location).attr('href', url);         
         }
     </script>
 </body>

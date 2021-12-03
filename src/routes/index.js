@@ -72,7 +72,7 @@ router.get('/api/:userid/listas', (req, res) => {
             res.json(prepareResponse(1,'Listas encontradas',result));
         }
         else{
-            res.json(prepareResponse(0, 'El usuario no tiene listas registradas'));
+            res.json(prepareResponse(1, 'El usuario no tiene listas registradas'));
         }
     });
 });
@@ -188,7 +188,7 @@ router.get('/:iduser/mislistas', (req, res) => {
     res.render('listas.html', {iduser: iduser});
 });
 
-//Página para ver los items de un
+//Página para ver los items de una lista
 router.get('/lista/:idlista', (req, res) => {
     const {idlista} = req.params;
     res.render('verLista.html', {idlista: idlista});
