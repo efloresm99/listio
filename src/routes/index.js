@@ -5,10 +5,10 @@ const mysql = require('mysql');
 
 //Crear conexión a la base de datos
 const conexion = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: '',
-    database: 'listio'
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME
 });
 
 
@@ -224,8 +224,6 @@ router.get('/lista/:idlista', (req, res) => {
     const {idlista} = req.params;
     res.render('verLista.html', {idlista: idlista});
 })
-
-
 
 
 module.exports = router;

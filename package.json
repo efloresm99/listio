@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start" : "node src/app.js",
+    "start": "node src/app.js",
     "dev": "nodemon src/app.js"
   },
   "repository": {
@@ -25,6 +25,7 @@
     "mysql": "^2.18.1"
   },
   "devDependencies": {
+    "dotenv": "^10.0.0",
     "nodemon": "^2.0.15"
   }
 }

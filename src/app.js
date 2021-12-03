@@ -3,6 +3,11 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 
+//Validar entorno
+if (process.env.NODE_ENV != 'production') {
+    require('dotenv').config();
+}
+
 //Configurar puerto a utilizar por la aplicación
 const PORT = process.env.PORT || 3000;
 
