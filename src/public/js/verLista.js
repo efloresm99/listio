@@ -50,7 +50,7 @@ function cargarItems(){
                 else{
                     //Deshabilitar el botón de borrar todo
                     $('#borrarTodo').prop('disabled', true);
-                    html += '<tr><td colspan="2">Vaya! Parece que la lista está vacía.</td></tr>';
+                    html += '<tr><td colspan="3">Vaya! Parece que la lista está vacía.</td></tr>';
                 }
                 //Insertar los elementos html
                 $('#cuerpo').html(html);
