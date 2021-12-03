@@ -104,7 +104,27 @@ router.delete('/api/listas/borrar/:idlista', (req, res) => {
     });
 });
 
-//Nota: No se podrán editar las listas
+
+//Obtener la información de una lista
+router.get('/api/listas/:idlista', (req, res) => {
+    const {idlista} = req.params;
+    const querySelect = `SELECT * FROM listas WHERE idlista = ${idlista}`;
+    conexion.query(querySelect,(error, result) => {
+        if (error) throw error;
+            
+        if (result.length > 0){
+            res.json(prepareResponse(1,'Lista encontrada',result));
+        }
+        else{
+            res.json(prepareResponse(1, 'La lista solicitada no existe'));
+        }
+    })
+});
+
+
+
+
+//Nota: No se podrán editar los nombres de las listas
 
 
 
