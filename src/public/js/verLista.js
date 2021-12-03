@@ -192,19 +192,41 @@ function cargarNombreLista(){
 function editarItemText(idelemento, textoElemento){
     $('#editBlock').show();
     $('#editItem').val(textoElemento);
-    $('#btnEdit').on('click', `editarItem(${idelemento})`);
     $('#editItem').focus();
+    $('#btnEdit').attr('onclick', 'editarItem(' + idelemento + ')');
 
     deshabilitarControles();
 }
 
 //Función para actualizar el nombre de un elemento
 function editarItem(idelemento){
-    $('#editItem').val('');
-    $('#editBlock').hide();
-
     
-    //habilitarControles();
+
+        const url = 'http://localhost:3000/api/items/' + idelemento + '/editar';
+        const itemTxt = $('#editItem').val();
+        const itemObj = {
+            item: itemTxt
+        };
+        const data = JSON.stringify(itemObj);
+        $.ajax({
+            type: 'PUT',
+            url: url,
+            dataType: "json",
+            data: data,
+            contentType: "application/json; charset=utf-8",
+            success: function(response){
+                if (response.responseCode == 1){
+                    $('#editBlock').hide();
+                    $('#editItem').val('');
+                    habilitarControles();
+                    cargarItems();
+                } else{
+                    console.log(response);
+                }
+            }, error(error){
+                console.log(error);
+            }
+        });
 }
 
 function deshabilitarControles(){

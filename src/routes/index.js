@@ -156,6 +156,17 @@ router.put('/api/items/:iditem/cambiarestado', (req, res) => {
     });
 });
 
+//Editar item
+router.put('/api/items/:iditem/editar', (req, res) => {
+    const {iditem} = req.params;
+    const {item} = req.body;
+    const queryCompletado = `UPDATE items_lista SET item = '${item}' WHERE idelemento=${iditem}`; //Cambia el estado de completado
+    conexion.query(queryCompletado, error => {
+        if (error) throw error;
+        res.json(prepareResponse(1,'Item editado exitosamente'));
+    });
+});
+
 
 //Eliminar items marcados como completados
 router.delete('/api/:idlista/items/borrar/completados', (req, res) => {
