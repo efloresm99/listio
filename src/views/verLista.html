@@ -87,7 +87,7 @@
                         
                        <div class="col-md-6">
                         <div class="input-group">
-                            <button class="btn btn-warning" disabled>Borrar seleccionado</button>
+                            <button class="btn btn-warning" id="borrarSelec" disabled onclick="borrarSeleccionado()">Borrar seleccionado</button>
                             <span class="input-group-text">&nbsp;</span>
                             <button class="btn btn-danger">Borrar todo</button>
                           </div>
@@ -133,13 +133,26 @@
                     if (response.responseCode == 1){
                         console.log(response);
                         if (response.data.length > 0){
+                            let countSelected = 0;
                             response.data.forEach(element => {
                                 html += '<tr class="items">';
                                 html += '<td class="itemNombre">' + element.item + '</td>';
                                 html += element.completado == 1 ? `<td> <input class="form-check-input" type="checkbox" checked onchange="cambiarEstado(${element.idelemento})"></td>`
                                     : `<td> <input class="form-check-input" type="checkbox" onchange="cambiarEstado(${element.idelemento})"></td>`;
                                 html += '</tr>';
+                                
+                                //Quitar el disabled si hay por lo menos uno chequeado
+                                if (element.completado == 1){
+                                    countSelected++;
+                                }
+
                             });
+                            if (countSelected > 0){
+                                $('#borrarSelec').prop('disabled', false);
+                            }else{
+                                $('#borrarSelec').prop('disabled', true);
+                            }
+                          
                         }
                         else{
                             html += '<tr><td colspan="2">Vaya! Parece que la lista está vacía.</td></tr>';
@@ -207,6 +220,26 @@
                 error: function(error){
                     console.log(error);
                     alert('Ha ocurrido un error al obtener la información');
+                }
+            });
+        }
+
+
+        function borrarSeleccionado(){
+            const url = 'http://localhost:3000/api/' + idlista + '/items/borrar/completados';
+            $.ajax({
+                type: 'DELETE',
+                url: url,
+                dataType: "json",
+                success: function(response){
+                    if (response.responseCode == 1){
+                        console.log(response);
+                        cargarItems();
+                    }
+                },
+                error: function(error){
+                    console.log(error);
+                    alert('Ha ocurrido un error al establecer la comunicación con el servidor');
                 }
             });
         }
